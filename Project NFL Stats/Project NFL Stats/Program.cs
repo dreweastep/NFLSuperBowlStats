@@ -29,23 +29,25 @@ namespace Project_NFL_Stats
                     var line = reader.ReadLine();
                     var elements = line.Split(DELIMITER);
 
-                    SuperBowl thisSuperBowl = new SuperBowl();
+                    SuperBowl thisSuperBowl = new SuperBowl
+                    {
 
-                    thisSuperBowl.Date = elements[0];
-                    thisSuperBowl.SuperBowlNumber = elements[1];
-                    thisSuperBowl.Attendance = Int32.Parse(elements[2]);
-                    thisSuperBowl.WinningQB = elements[4];
-                    thisSuperBowl.WinningTeam = elements[5];
-                    thisSuperBowl.WinningTeamPoints = Int32.Parse(elements[6]);
-                    thisSuperBowl.LosingQB = elements[7];
-                    thisSuperBowl.LosingCoach = elements[8];
-                    thisSuperBowl.LosingTeam = elements[9];
-                    thisSuperBowl.LosingTeamPoints = Int32.Parse(elements[10]);
-                    thisSuperBowl.MVP = elements[11];
-                    thisSuperBowl.Stadium = elements[12];
-                    thisSuperBowl.City = elements[13];
-                    thisSuperBowl.State = elements[14];
+                        Date = elements[0],
+                        SuperBowlNumber = elements[1],
+                        Attendance = Int32.Parse(elements[2]),
+                        WinningQB = elements[4],
+                        WinningTeam = elements[5],
+                        WinningTeamPoints = Int32.Parse(elements[6]),
+                        LosingQB = elements[7],
+                        LosingCoach = elements[8],
+                        LosingTeam = elements[9],
+                        LosingTeamPoints = Int32.Parse(elements[10]),
+                        MVP = elements[11],
+                        Stadium = elements[12],
+                        City = elements[13],
+                        State = elements[14]
 
+                    }
                     superBowlList.Add(thisSuperBowl);
 
                 }//End of while loop
