@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using RazorEngine;
+using RazorEngine.Templating;
 
 namespace Project_NFL_Stats
 {
@@ -11,13 +13,28 @@ namespace Project_NFL_Stats
     {
         //DECLARATIONS
         static List<SuperBowl> superBowlList = new List<SuperBowl>();
+        static List<string> formattedWinners = new List<string>();
+        static List<string> formattedMVPs = new List<string>();
 
         static void Main(string[] args)
         {
             ReadIn();
             SuperBowlWinners();
             SuperBowlMVP();
-            
+
+            foreach (var winner in formattedWinners)
+            {
+                Console.WriteLine(winner);
+            }
+
+            foreach (var mvp in formattedMVPs)
+            {
+                Console.WriteLine(mvp);
+            }
+
+
+
+
             Console.ReadLine();
         }//End of Main method
 
@@ -67,12 +84,12 @@ namespace Project_NFL_Stats
             
             foreach(var superBowl in superBowlList)
             {
-                Console.WriteLine($"Team Name: {superBowl.WinningTeam} \n" +
-                    $"Super Bowl Won: {superBowl.SuperBowlNumber}\n" +
-                    $"Quarterback: {superBowl.WinningQB}\n" +
-                    $"Coach: {superBowl.WinningCoach}\n" +
-                    $"MVP: {superBowl.MVP}\n" +
-                    $"Point Difference: {superBowl.WinningTeamPoints - superBowl.LosingTeamPoints}\n");
+                formattedWinners.Add($"Team Name: {superBowl.WinningTeam.PadRight(22)} " +
+                    $"Super Bowl Year: {superBowl.Date.Substring(superBowl.Date.Length - 2).PadRight(4)} " +
+                    $"Quarterback: {superBowl.WinningQB.PadRight(20)} " +
+                    $"Coach: {superBowl.WinningCoach.PadRight(16)} " +
+                    $"MVP: {superBowl.MVP.PadRight(18)} " +
+                    $"Point Difference: {superBowl.WinningTeamPoints - superBowl.LosingTeamPoints} ");
 
             }
         }
@@ -88,15 +105,17 @@ namespace Project_NFL_Stats
 
             foreach (var group in myMVPList)
             {
-                Console.WriteLine($"MVP: {group[0].MVP}");
-                Console.WriteLine("Super Bowls won: \n");
+                formattedMVPs.Add($"MVP: {group[0].MVP}");
+ 
                 foreach (var superBowl in group)
                 {
-                    Console.WriteLine($"Super Bowl: {superBowl.SuperBowlNumber}\n" +
-                        $"Winning Team: {superBowl.WinningTeam} \n" +
-                        $"Losing Team: {superBowl.LosingTeam} \n");
+                    formattedMVPs.Add($"Super Bowl Year: {superBowl.Date.Substring(superBowl.Date.Length - 2).PadRight(4)} " +
+                        $"Winning Team: {superBowl.WinningTeam.PadRight(22)} " +
+                        $"Losing Team: {superBowl.LosingTeam}");
                 }
             }
         }
+
+        //private static 
     }
 }
