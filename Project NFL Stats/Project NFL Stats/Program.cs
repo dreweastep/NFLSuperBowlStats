@@ -40,6 +40,7 @@ namespace Project_NFL_Stats
             SuperBowlPointDifference();
             SuperBowlAverageAttendence();
 
+            CreateTextFile();
 
             foreach (var winner in formattedWinners)
             {
@@ -295,8 +296,12 @@ namespace Project_NFL_Stats
             }
 
             double average = Math.Round(aggergate / superBowlList.Count());
-            Console.WriteLine(aggergate);
             formattedAverageAttendence.Add($"Average Attendence: {average}");
+        }
+
+        private static void CreateTextFile()
+        {
+            
         }
     }
 }
