@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using RazorEngine;
-using RazorEngine.Templating;
 
 namespace Project_NFL_Stats
 {
@@ -17,6 +15,7 @@ namespace Project_NFL_Stats
         public static List<string> formattedMVPs = new List<string>();
         public static List<string> formattedTopAttended = new List<string>();
         public static List<string> formattedHostStates = new List<string>();
+        public static List<string> formattedHostStatesInfo = new List<string>();
         public static List<string> formattedLosingCoach = new List<string>();
         public static List<string> formattedWinningCoach = new List<string>();
         public static List<string> formattedLosingTeam = new List<string>();
@@ -29,6 +28,7 @@ namespace Project_NFL_Stats
         static void Main(string[] args)
         {
             ReadIn();
+
             SuperBowlWinners();
             SuperBowlAttendence();
             SuperBowlState();
@@ -39,58 +39,8 @@ namespace Project_NFL_Stats
             SuperBowlWinningTeam();
             SuperBowlPointDifference();
             SuperBowlAverageAttendence();
-
+            
             CreateTextFile();
-
-            foreach (var winner in formattedWinners)
-            {
-                Console.WriteLine(winner);
-            }
-
-            foreach (var mvp in formattedMVPs)
-            {
-                Console.WriteLine(mvp);
-            }
-
-            foreach (var attendence in formattedTopAttended)
-            {
-                Console.WriteLine(attendence);
-            }
-
-            foreach (var state in formattedHostStates)
-            {
-                Console.WriteLine(state);
-            }
-
-            foreach (var item in formattedLosingCoach)
-            {
-                Console.WriteLine(item);
-            }
-
-            foreach (var item in formattedWinningCoach)
-            {
-                Console.WriteLine(item);
-            }
-
-            foreach (var item in formattedLosingTeam)
-            {
-                Console.WriteLine(item);
-            }
-
-            foreach (var item in formattedWinningTeam)
-            {
-                Console.WriteLine(item);
-            }
-
-            foreach (var item in formattedPointDifference)
-            {
-                Console.WriteLine(item);
-            }
-
-            foreach (var item in formattedAverageAttendence)
-            {
-                Console.WriteLine(item);
-            }
 
             Console.ReadLine();
         }//End of Main method
@@ -142,12 +92,12 @@ namespace Project_NFL_Stats
             //Module displays information about all super bowl winners and ads to formattedWinners list
             foreach(var superBowl in superBowlList)
             {
-                formattedWinners.Add($"Team Name: {superBowl.WinningTeam.PadRight(22)} " +
-                    $"Super Bowl Year: {superBowl.Date.Substring(superBowl.Date.Length - 2).PadRight(4)} " +
-                    $"Quarterback: {superBowl.WinningQB.PadRight(20)} " +
-                    $"Coach: {superBowl.WinningCoach.PadRight(16)} " +
-                    $"MVP: {superBowl.MVP.PadRight(17)} " +
-                    $"Point Difference: {superBowl.WinningTeamPoints - superBowl.LosingTeamPoints} ");
+                formattedWinners.Add($"{superBowl.WinningTeam.PadRight(22)} " +
+                    $"{superBowl.Date.Substring(superBowl.Date.Length - 2).PadRight(4)} " +
+                    $"{superBowl.WinningQB.PadRight(20)} " +
+                    $"{superBowl.WinningCoach.PadRight(16)} " +
+                    $"{superBowl.MVP.PadRight(18)} " +
+                    $"{superBowl.WinningTeamPoints - superBowl.LosingTeamPoints} ");
 
             }
         }
@@ -162,13 +112,13 @@ namespace Project_NFL_Stats
 
             foreach (var superBowl in myAttendenceList)
             {
-                formattedTopAttended.Add($"Attendence: {superBowl.Attendance.ToString().PadRight(9)}" +
-                    $"Super Bowl Year: {superBowl.Date.Substring(superBowl.Date.Length - 2).PadRight(4)} " +
-                    $"Winning Team: {superBowl.WinningTeam.PadRight(22)} " +
-                    $"Losing Team: {superBowl.LosingTeam.PadRight(22)}" +
-                    $"City: {superBowl.City.PadRight(13)} " +
-                    $"State: {superBowl.State.PadRight(12)} " +
-                    $"Stadium: {superBowl.Stadium}");
+                formattedTopAttended.Add($"{superBowl.Attendance.ToString().PadRight(12)} " +
+                    $"{superBowl.Date.Substring(superBowl.Date.Length - 2).PadRight(4)} " +
+                    $"{superBowl.WinningTeam.PadRight(22)} " +
+                    $"{superBowl.LosingTeam.PadRight(22)} " +
+                    $"{superBowl.City.PadRight(13)} " +
+                    $"{superBowl.State.PadRight(12)} " +
+                    $"{superBowl.Stadium}");
             }
         }
 
@@ -187,9 +137,9 @@ namespace Project_NFL_Stats
 
                 foreach (var superBowl in group)
                 {
-                    formattedHostStates.Add($"Super Bowl: {superBowl.SuperBowlNumber.PadRight(7)}" +
-                        $"City: {superBowl.City.PadRight(13)} " +
-                        $"Stadium: {superBowl.Stadium}");
+                    formattedHostStatesInfo.Add($"{superBowl.SuperBowlNumber.PadRight(12)}" +
+                        $"{superBowl.City.PadRight(15)} " +
+                        $"{superBowl.Stadium}");
                 }
             }
         }
@@ -209,9 +159,9 @@ namespace Project_NFL_Stats
 
                 foreach (var superBowl in group)
                 {
-                    formattedMVPs.Add($"Super Bowl Year: {superBowl.Date.Substring(superBowl.Date.Length - 2).PadRight(4)} " +
-                        $"Winning Team: {superBowl.WinningTeam.PadRight(22)} " +
-                        $"Losing Team: {superBowl.LosingTeam}");
+                    formattedMVPs.Add($"{superBowl.Date.Substring(superBowl.Date.Length - 2).PadRight(15)} " +
+                        $"{superBowl.WinningTeam.PadRight(22)} " +
+                        $"{superBowl.LosingTeam}");
                 }
             }
         }
@@ -226,7 +176,7 @@ namespace Project_NFL_Stats
 
             foreach (var superBowl in mostLosingCoach)
             {
-                formattedLosingCoach.Add($"Coach: {superBowl.PadRight(12)}");
+                formattedLosingCoach.Add($"{superBowl.PadRight(12)}");
             }
         }
 
@@ -240,7 +190,7 @@ namespace Project_NFL_Stats
 
             foreach (var superBowl in mostWinningCoach)
             {
-                formattedWinningCoach.Add($"Coach: {superBowl.PadRight(12)}");
+                formattedWinningCoach.Add($"{superBowl.PadRight(12)}");
             }
         }
 
@@ -254,7 +204,7 @@ namespace Project_NFL_Stats
 
             foreach (var superBowl in mostLosingTeam)
             {
-                formattedLosingTeam.Add($"Team: {superBowl.PadRight(12)}");
+                formattedLosingTeam.Add($"{superBowl.PadRight(12)}");
             }
         }
 
@@ -268,7 +218,7 @@ namespace Project_NFL_Stats
 
             foreach (var superBowl in mostWinningTeam)
             {
-                formattedWinningTeam.Add($"Team: {superBowl.PadRight(12)}");
+                formattedWinningTeam.Add($"{superBowl.PadRight(12)}");
             }
         }
 
@@ -281,8 +231,8 @@ namespace Project_NFL_Stats
 
             foreach (var superBowl in myPointList)
             {
-                formattedTopAttended.Add($"Super Bowl: {superBowl.SuperBowlNumber.PadRight(7)}" +
-                    $"Point difference: {superBowl.WinningTeamPoints - superBowl.LosingTeamPoints}");
+                formattedPointDifference.Add($"Super Bowl: {superBowl.SuperBowlNumber.PadRight(7)}" +
+                    $"Point Difference: {superBowl.WinningTeamPoints - superBowl.LosingTeamPoints}");
             }
         }
 
@@ -296,12 +246,183 @@ namespace Project_NFL_Stats
             }
 
             double average = Math.Round(aggergate / superBowlList.Count());
-            formattedAverageAttendence.Add($"Average Attendence: {average}");
+            formattedAverageAttendence.Add($"The average attendence for a superbowl is: {average}");
         }
 
         private static void CreateTextFile()
         {
-            
+            Console.WriteLine("Welcome to the NFL Statistics Program. \n" +
+                    "Please enter the file path for text file to be created (without .txt extension)");
+
+            bool exitFileLocation = false;
+            while (!exitFileLocation)
+            {
+                string filePath = Console.ReadLine().Trim();
+                string fileName = filePath + ".txt";
+
+                try
+                {
+                    using (var writer = new StreamWriter(@fileName))
+                    {
+
+                        writer.WriteLine("NFL Statistics:");
+                        writer.WriteLine();
+                        writer.WriteLine();
+
+                        writer.WriteLine("Below is a list of all NFL Super Bowl Winners: ");
+                        writer.WriteLine();
+
+                        writer.WriteLine("Team Name".PadRight(23) +
+                            "Year".PadRight(5) +
+                            "Quarterback".PadRight(21) +
+                            "Coach".PadRight(17) +
+                            "MVP".PadRight(19) +
+                            "Winning Team Points");
+
+                        writer.WriteLine();
+
+                        foreach (var element in formattedWinners)
+                        {
+                            writer.WriteLine(element);
+                        }
+
+                        writer.WriteLine();
+                        writer.WriteLine();
+
+                        writer.WriteLine("Below is a list of all the top 5 most attended super bowls: ");
+                        writer.WriteLine();
+
+                        writer.WriteLine("Attendence".PadRight(13) +
+                            "Year".PadRight(5) +
+                            "Winning Team".PadRight(23) +
+                            "Losing Team".PadRight(23) +
+                            "City".PadRight(14) +
+                            "State".PadRight(13) +
+                            "Stadium");
+                        writer.WriteLine();
+
+                        foreach (var element in formattedTopAttended)
+                        {
+                            writer.WriteLine(element);
+                        }
+
+                        writer.WriteLine();
+                        writer.WriteLine();
+
+                        writer.WriteLine("Below is a list of all the superbowls hosted by the state that host hosted the most superbowls: ");
+                        writer.WriteLine();
+
+                        writer.WriteLine(formattedHostStates[0]);
+                        writer.WriteLine();
+
+                        writer.WriteLine("Superbowl".PadRight(12) +
+                            "City".PadRight(16) +
+                            "Stadium");
+                        writer.WriteLine();
+
+                        foreach (var element in formattedHostStatesInfo)
+                        {
+                            writer.WriteLine(element);
+                        }
+                        writer.WriteLine();
+                        writer.WriteLine();
+
+                        writer.WriteLine("Below is a list of players that have been mvp more than twice and the superbowls in which they were named mvp: ");
+                        
+                        foreach(var element in formattedMVPs)
+                        {
+                            if (element.Length < 30)
+                            {
+                                writer.WriteLine();
+                                writer.WriteLine(element);
+                                writer.WriteLine();
+
+                                writer.WriteLine($"Super Bowl Year".PadRight(16) +
+                                    "Winning Team".PadRight(23) +
+                                    "Losing Team");
+                                writer.WriteLine();
+                            }
+                            else
+                            {
+                                writer.WriteLine(element);
+                            }
+                        }
+                        writer.WriteLine();
+                        writer.WriteLine();
+
+                        writer.WriteLine("Below is a list of the coaches that have lost the most superbowls: ");
+
+                        foreach (var element in formattedLosingCoach)
+                        {
+                            writer.WriteLine(element);
+                        }
+                        writer.WriteLine();
+                        writer.WriteLine();
+
+                        writer.WriteLine("Below is a list of the coaches that have won the most superbowls: ");
+
+                        foreach (var element in formattedWinningCoach)
+                        {
+                            writer.WriteLine(element);
+                        }
+                        writer.WriteLine();
+                        writer.WriteLine();
+
+                        writer.WriteLine("Below is a list of the teams that have lost the most superbowls: ");
+
+                        foreach (var element in formattedLosingTeam)
+                        {
+                            writer.WriteLine(element);
+                        }
+                        writer.WriteLine();
+                        writer.WriteLine();
+
+                        writer.WriteLine("Below is a list of the teams that have won the most superbowls: ");
+
+                        foreach (var element in formattedWinningTeam)
+                        {
+                            writer.WriteLine(element);
+                        }
+                        writer.WriteLine();
+                        writer.WriteLine();
+
+                        writer.WriteLine("Below is the superbowl with the greatest point difference between the winning and losing team: ");
+
+                        foreach (var element in formattedPointDifference)
+                        {
+                            writer.WriteLine(element);
+                        }
+                        writer.WriteLine();
+                        writer.WriteLine();
+
+                        foreach (var element in formattedAverageAttendence)
+                        {
+                            writer.WriteLine(element);
+                        }
+                        writer.WriteLine();
+                        writer.WriteLine();
+
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadLine();
+
+                        Console.WriteLine("Thank You for using the NFL Statistics Program!");
+
+                        var file = new FileInfo(fileName);
+                        string absolutePath = file.FullName;
+
+                        Console.WriteLine("The absolute path for your file is: " + absolutePath);
+
+                    }//End of using
+
+                    exitFileLocation = true;
+
+                }//End of try
+                catch
+                {
+                    Console.WriteLine("That file path cannot be used, please enter a valid file path.");
+                }
+
+            }//End of while loop
         }
     }
 }
